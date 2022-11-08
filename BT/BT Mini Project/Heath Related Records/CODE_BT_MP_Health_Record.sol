@@ -1,10 +1,8 @@
 pragma solidity 0.8.7;
 
 //	SPDX-License-Identifier: MIT
-
 //	BT Mini - Project - Build a medical records application
-
-//	Group members: 41108 Medha Badamikar, 41117 Udayan Chavan, 41122 Tejas Deshpande
+//	Group members: Anuj Mutha, Nidhi Pati, Amit Purohit
 
 contract PatientInfo {
 
