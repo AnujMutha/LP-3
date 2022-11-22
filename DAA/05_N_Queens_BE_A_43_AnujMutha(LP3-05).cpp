@@ -1,4 +1,4 @@
-"""
+/*
 Name: Anuj Mahendra Mutha
 Class:BE-4 Computer Engineering
 Batch : R4
@@ -6,7 +6,7 @@ Lab Assignment No: 05
 Title: Design n-Queens matrix having first Queen placed. Use backtracking to place remaining 
 Queens to generate the final n-queen‘s matrix.
 
-"""
+*/
 
 #include <iostream>
 using namespace std;
@@ -21,6 +21,7 @@ void print(int n) {
     cout<<endl;
     cout<<endl;
 }
+
 bool isSafe(int col, int row, int n) {
     //check for same column
     for (int i = 0; i < row; i++) {
@@ -58,6 +59,7 @@ bool solve (int n, int row) {
     }
     return res;
 }
+
 int main()
 {
     int n;

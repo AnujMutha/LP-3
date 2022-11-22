@@ -43,7 +43,7 @@ Enter length of series
 */
 //Non-Recursive code (Part-2)
 
-/*
+
 #include <iostream>
 using namespace std;
 int fibbonacci(int n) {
