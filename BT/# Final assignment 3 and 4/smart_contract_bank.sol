@@ -1,78 +1,36 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8;
+//SPDX-License-Identifier : MIT
+pragma solidity >=0.5.0 <0.9.0;
 
-contract Banking {
-    mapping(address => uint256) public user_account;
-    mapping(address => bool) public user_exists;
+contract Banking{
+    mapping(address => uint256) user_account;
+    mapping(address => bool) user_exists;
 
-    function create_account() public payable returns (string memory) {
-        require(user_exists[msg.sender] == false, "Account already created");
-        if (msg.value == 0) {
-            user_account[msg.sender] = 0;
+    function create_account()public payable returns(string memory){
+        require(user_exists[msg.sender]==false, "User already exists");
+        if(msg.value==0){
             user_exists[msg.sender] = true;
-            return "Account created";
+            user_account[msg.sender] = 0;
+            return "User created";
         }
-        require(user_exists[msg.sender] == false, " Account already created");
-        user_account[msg.sender] = msg.value;
+        require(user_exists[msg.sender]==false, "User already exists");
         user_exists[msg.sender] = true;
-        return "Account created";
+        user_account[msg.sender] = msg.value;
+        return "User Created";
     }
-
-    function deposit() public payable returns (string memory) {
-        require(user_exists[msg.sender] == true, "Account not created");
-        require(msg.value > 0, "Value for deposit is Zero");
-        user_account[msg.sender] = user_account[msg.sender] + msg.value;
-        return "Deposited Succesfully";
+    function deposit()public payable returns(string memory){
+        require(user_exists[msg.sender]==true, "User does not exist");
+        require(msg.value>0,"The value to deposit is zero");
+        user_account[msg.sender]+=msg.value;
+        return "Deposited";
     }
-
-    function withdraw(uint256 amount) public payable returns (string memory) {
-        require(user_account[msg.sender] > amount, "Insufficeint balance");
-        require(user_exists[msg.sender] == true, "Account not created");
-        require(amount > 0, "Amount should be more than zero");
-        user_account[msg.sender] = user_account[msg.sender] - amount;
-        return "Withdrawal Successfull";
+    function Withdraw(uint256 amount) public payable returns(string memory){
+        require(user_exists[msg.sender]==true, "User doesn't exist");
+        require(user_account[msg.sender]>=amount, "The account doesnot contain enough money");
+        user_account[msg.sender]-=amount;
+        return"Amount Withdrawn";
     }
-
-    function transfer(address payable userAddress, uint256 amount)
-        public
-        returns (string memory)
-    {
-        require(
-            user_account[msg.sender] > amount,
-            "Insufficeint balance in Bank account"
-        );
-        require(user_exists[msg.sender] == true, "Account is not created");
-        require(
-            user_exists[userAddress] == true,
-            "Tranfer account does not exist"
-        );
-        require(amount > 0, "Amount should be more than zero");
-        user_account[msg.sender] = user_account[msg.sender] - amount;
-        user_account[userAddress] = user_account[userAddress] + amount;
-        return "Transfer succesful";
-    }
-
-    function send_amt(address payable toAddress, uint256 amount)
-        public
-        payable
-        returns (string memory)
-    {
-        require(
-            user_account[msg.sender] > amount,
-            "Insufficeint balance in Bank account"
-        );
-        require(user_exists[msg.sender] == true, "Account is not created");
-        require(amount > 0, "Amount should be more than zero");
-        user_account[msg.sender] = user_account[msg.sender] - amount;
-        toAddress.transfer(amount);
-        return "Transfer success";
-    }
-
-    function user_balance() public view returns (uint256) {
+    function show_amount() public view returns(uint256){
+        require(user_exists[msg.sender]==true, "User doesn't exist");
         return user_account[msg.sender];
     }
-
-    function account_exist() public view returns (bool) {
-        return user_exists[msg.sender];
-    }
-}
+}   
